@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        height: 100vh;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .container {
+        height: 760px;
+        width: 500px;
+        border-radius: 4px;
+        border: 0.5px solid #e0e0e0;
+        background-color: #f5f5f5;
+        display: flex;
+        flex-flow: column;
+        overflow: hidden;
+      }
+      .title-area {
+        background-color: #e0e0e0;
+      }
+      .title {
+        text-align: center;
+      }
+
+      .content {
+        width: calc(100% - 30px);
+        padding: 20px;
+        overflow-y: scroll;
+        flex: 1;
+      }
+      .content:hover::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 0, 0.1);
+      }
+
+      .item {
+        margin-top: 10px;
+
+        width: 100%;
+      }
+
+      .item-right {
+        margin: 15px 0 0 auto;
+      }
+
+      .bubble {
+        max-width: 250px;
+        padding: 10px;
+        border-radius: 5px;
+        position: relative;
+        color: #000;
+      }
+      .item-left {
+        margin-left: 15px;
+        background-color: #fff;
+      }
+      .item-left.bubble:before {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-left: 10px solid transparent;
+        border-top: 10px solid transparent;
+        border-right: 10px solid #fff;
+        border-bottom: 10px solid transparent;
+        left: -20px;
+      }
+
+      .item-right {
+        margin-right: 15px;
+        background-color: #9eea6a;
+      }
+      .item-right.bubble:before {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-top: 10px solid transparent;
+        border-left: 10px solid #9eea6a;
+
+        border-right: 10px solid transparent;
+        border-bottom: 10px solid transparent;
+        right: -20px;
+      }
+      .input-area {
+        border-top: 1px solid #e0e0e0;
+        height: 160px;
+        display: flex;
+        flex-flow: column;
+        background-color: #fff;
+      }
+      textarea {
+        flex: 1;
+        padding: 5px;
+        font-size: 14px;
+        border: none;
+        overflow-y: auto;
+        overflow-x: hidden;
+        outline: none;
+        resize: none;
+      }
+      .button-area {
+        display: flex;
+        height: 60px;
+        margin-right: 10px;
+        line-height: 45px;
+        padding: 8px;
+        justify-content: flex-end;
+      }
+      #btn {
+        width: 80px;
+        border: none;
+        outline: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      img {
+        height: 70%;
+        padding: 5px;
+        margin: 5px;
+        cursor: pointer;
+      }
+
+      .tools {
+        height: 50px;
+        background-color: #fff;
+      }
+    </style>
+    <script>
+      function send() {
+        var content = document.getElementById("content");
+        var textarea = document.getElementById("textarea");
+        var msg = "";
+        if (textarea.value === "") {
+          // 消息为空时弹窗
+          alert("消息不能为空");
+          return;
+        } else {
+          msg =
+            `<div class="bubble item item-right">` + textarea.value + `</div>`;
+          textarea.value = "";
+        }
+        content.innerHTML += msg;
+      }
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="title-area">
+        <div class="title">
+          <h2>与小明对话中</h2>
+        </div>
+      </div>
+
+      <div class="content" id="content">
+        <div class="bubble item item-left">很高兴认识你</div>
+        <div class="bubble item item-right">我也很高兴认识你</div>
+      </div>
+
+      <div class="tools">
+        <img
+          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAYAAADhAJiYAAAAAXNSR0IArs4c6QAAAqxJREFUWEftmO1RVFEMhl8qQCpQKxAqwA7ACsQK1ArACtQKhArQDrQCsQK1A6lA5mESJ2TPR+6yP3Yc8ufO7uYk73nzeXdHWyY7W4ZH/w2gfUkvJfF8ZE/IvpL0x54X9lwUhKUMnUl6bSAqjgD3QdK7ijI6VUDHkt5LelI1nPR+SXor6fPsfAUQrJwmQ7/N+FdJOCNUCCEE9HNJXOJxOoetIVszQOeWK24XIBjl+4qcmH4ExtlXvcMjQJmZL5JwQF4sEZIeEEfhECxhf0V6gKD7MmhTMYC5j2S2X7RyqgeIvHCaYQaAmxCS2pnCx9NstAUohoqcIVGXhqkHnvABZNcUVkLXAoRzP0Dy5QSmgqg6gGKcW3vlcBkYoNKoPL6nEqMQ+k/2Bb724o8ZEE6+mwLs5L4TjUU7sewzO61LxZQ4iB09A6Kr0omRj5LeBOuAAyy0LxFYwCkgXLp+MiDoPbRTuQp67FTAZZZiFX+zRnprJwOC+mfm4Q6VxhbjYx1hbMCKS0wNfOKrCehvODTKr6Wg8uU43/SVnY4AYST2kSqoXh8rARqFDAAkNHnmYZ2B+mH5kftYDBk6fG6GbJTUfqYKqgcGO+WkHpV9ZGMGagQGO+Wyj1Q2Z01A1QM1A4OJcmNEeTY6RkxVwMR+dp0b7Wy4chNKdjRcnSmAMudmuj8DiNJwzZRS6nTtkfg4mW0FsW20ZmV3yc8L2nDtnNW+/X6vBQ0beYXldsykGQsZH+yxbsQlb/EK60bzrcgpgLLSVoQEZv7FDWG4Ds/eOlpMeY7BGI2UXIj7EKuvvwblfarLTK9T924N3TSz/J5VYQkdQLNbbeRFMTolXBj2FXcGiD7DRZqvPK3DlZC1ztHRyQ//s8GHLY3R/2wg/zyUM+D/fl8XUNnBUsUHQDPGbgApB6QlzDSUIwAAAABJRU5ErkJggg=="
+        />
+        <img
+          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAYAAADhAJiYAAAAAXNSR0IArs4c6QAAAn9JREFUWEfdmIFRFEEQRT8ZSARoBEIEmIEaARIBEIEQgRCBGoGaAUYgZAARABFAPWv6qq93Zqd367bqtKu2lprrmf79p/vPLDvaMtvZMjz6bwDtSzqSxBt7V97X5X0j6bsk3pNsKkOfJH2W9DoZ5U7SpaSrpH96yz5I+jIBSIwPsDNJP3vAMgydFjC9tTK/n0u6GHPsAfpWaiUTLOvDmsct5zFAm2Qmxocl2BpYCxA18yOb8ky/j7WaagGiCPdmBspOI8ab6FwDRGt/DY63ktAYFjFteSx/IwEmA6+KNqFPPL2kBltXA+TZeSoLMzbHAMr28xxWFiCpXT8eAZHVH+fw26lwXA91fi6D+PUMf9hH4b0deEWPgFDVkzCBboAhFrStaAW3bWRb2WKAMuYtNgwqTkf/tQiIRWrU9rIf+x11Jqidc9TZQ2sXpgCisMncnggC9qgZ3rWkmAc4mLbDmDUYZ9uqDFlN+GD3JUikfowVWLBifp+gd0VMZKgGyOsFgcjerh0+FpnCYuxIWKMOYzH7uU1ArRqyIJlrB0yyNTy/XNSW+pPEKsEpNZRgfuBCIrDDZa0FaE1aMm1PFAQS9qygrZ4Y80pt0pCpG0M/2vZRGG1S9SAcocyKGnZ6x8eoMBKjdrBay1pb14razjmrHWNx7BoD84BfWe0s29Q9iIsYhyfAvBD6+KnDtcXSnKJmDoDWWCgLoW+Drv1nLmgkQUHyybOETb7CGoglLvloEteQqvW+OjbNVJMZQ5cBhC8qy12ppymtxClguncjH4o+CIvyZIGhMyRS/eSpoc8yFOcijNQBb1r6bXHgoLRbI/W3+D8blui4tTXnMrQYsK0D9AJaWYQlBOKiKAAAAABJRU5ErkJggg=="
+        />
+        <img
+          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAYAAADhAJiYAAAAAXNSR0IArs4c6QAAAhlJREFUWEftl+ExBEEQhd9FQAZkQAaEIANEgAgQASJABkIgAzIgAyKgPjWt2tzM9sysH6fq+s+V2n07r1/362kLrVgsVoyP1oSiivxbhbYlnUu6lPQaZZk978K2KHQh6UTSZjqIvyHWEt3YKUK7km4l8ZvHs6RjSfyWIsKeSXosAUuEUILynDZIcJ3Uek/vzsF+fyIntJ9Uoe6tQU+hFoGivVjUerDDckIHku4kbbSykfQh6Si9P4qtEuK7yE4pDhtI3afS+pKNYosl8xwoHxlvFYi9JVWKjSlpGBvZHrVobprcAsujgqlSE3IIGxGyw7AxxCBSs3qNWBe2hZC3cm7zqM26sRGh0hgwm9f6x0gOYWuEyIyZwhioBVZl/uS9BPbKjYISvoYt7kPMFD5od9dUWSBDb2F/ggRIZARbtD02b5k/OUkjNIq1wbqkEJnZDR01rD2/SRj+zkdE9A3D/pS91kNYFbV2Jr74kvqEMUASn+mi7cX+OiJyGQeRtb/buLuwP89wEv1mKwrkbLUAxzs1bDHXiBAgbm/U2pP0lFRB4qkVxeYVLZBjJzfOFkJ+rjB7cBKqRGsGB9tqgZLR3Cq6bKoJW2ZT18wpvdyj0IgDOXPJSVNZ9xDypautJf6saEUZbupaQjjIryX+PVYUnnfHiEL+EOyOo3Ag4WdTNxkAcwnZofYfCuRmxV8RmkXCg9eEIinXCkUKfQFo8oEllFunQwAAAABJRU5ErkJggg=="
+        />
+      </div>
+
+      <div class="input-area">
+        <textarea name="text" id="textarea" cols="30" rows="10"></textarea>
+        <div class="button-area">
+          <button id="btn" onclick="send()">发送</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
